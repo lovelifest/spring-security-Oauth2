@@ -49,6 +49,24 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http
+                // 必须配置，不然OAuth2的http配置不生效----不明觉厉
+                .requestMatchers()
+                .antMatchers("/auth/login", "/auth/authorize","/oauth/authorize")
+                .and()
+                .authorizeRequests()
+                // 自定义页面或处理url是，如果不配置全局允许，浏览器会提示服务器将页面转发多次
+                .antMatchers("/auth/login", "/auth/authorize")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
+
+        // 表单登录
+        http.formLogin()
+                // 登录页面
+                .loginPage("/auth/login")
+                // 登录处理url
+                .loginProcessingUrl("/auth/authorize");
+        http.httpBasic().disable();
     }
 }

@@ -48,7 +48,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 设置令牌存储模式
-        endpoints.tokenStore(tokenStore());
+        endpoints.tokenStore(tokenStore()).pathMapping("/oauth/confirm_access","/custom/confirm_access");
     }
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

@@ -16,6 +16,12 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+  thymeleaf:
+    prefix: classpath:/views/
+    suffix: .html
+    cache: false
+    mvc:
+      throw-exception-if-no-handler-found: true
 server:
   port: 8080
 
